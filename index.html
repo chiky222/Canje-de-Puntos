@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canje de Puntos</title>
+    <!-- LINK A MAIN.JS -->
+    <script type="text/javascript" src="./js/main.js"></script>
+    <!-- LINK A STYLE.CSS -->
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- TITULO Y CABECERA -->
+    <header>
+        <div class="cabecera">
+            <h1>Canje de Puntos</h1>
+            <!-- LUGAR DONDE EL USUARIO INGRESARÁ LOS PUNTOS -->
+            <p>Ingresá cuantos puntos tenés: </p>
+            <div id="puntos-ingresados-contenedor">
+                <!--<p id="puntos-ingresados">0</p> -->
+                <input id="puntos-ingresados" type="text"></input>
+            </div>
+            <button onclick="consultarPuntos()">Consultar</button>
+        </div>
+    </header>
+    <main>
+        <!-- PRODUCTOS PARA CANJEAR -->
+        <div class="productos-disponibles">
+            <h2>Productos disponibles:</h2>
+            <div class="tarjetas-productos">
+                <div class="producto">
+                    <img alt="mate" src="./img/mate.jpg">
+                    <h3>Mate 3D</h3>
+                    <p>900 Puntos</p>
+                    <button onclick="realizarCanje(0)">Canjear</button>
+                </div>
+                <div class="producto">
+                    <img alt="termo" src="./img/termo.jpg">
+                    <h3>Termo Avengers</h3>
+                    <p>1.500 Puntos</p>
+                    <button onclick="realizarCanje(1)">Canjear</button>
+                </div>
+                <div class="producto">
+                    <img alt="chop" src="./img/chop.jpg">
+                    <h3>Chop IT</h3>
+                    <p>1.200 Puntos</p>
+                    <button onclick="realizarCanje(2)">Canjear</button>
+                </div>
+                <div class="producto">
+                    <img alt="kit asado" src="./img/kit-asado.jpg">
+                    <h3>Kit Asado</h3>
+                    <p>7.500 Puntos</p>
+                    <button onclick="realizarCanje(3)">Canjear</button>
+                </div>
+                <div class="producto">
+                    <img alt="botinero" src="./img/botinero.jpg">
+                    <h3>Botinero</h3>
+                    <p>2.000 Puntos</p>
+                    <button onclick="realizarCanje(4)">Canjear</button>
+                </div>
+                <div class="producto">
+                    <img alt="cartas" src="./img/cartas.jpg">
+                    <h3>Juego de Cartas</h3>
+                    <p>1.000 Puntos</p>
+                    <button onclick="realizarCanje(5)">Canjear</button>
+                </div>
+                <div class="producto">
+                    <img alt="camiseta" src="./img/camiseta.jpg">
+                    <h3>Camiseta Argentina</h3>
+                    <p>10.000 Puntos</p>
+                    <button onclick="realizarCanje(6)">Canjear</button>
+                </div>
+                <div class="producto">
+                    <img alt="giftcard" src="./img/giftcard.png">
+                    <h3>Giftcard $500</h3>
+                    <p>2.000 Puntos</p>
+                    <button onclick="realizarCanje(7)">Canjear</button>
+                </div>
+                <div class="producto">
+                    <img alt="portaretratos" src="./img/portaretratos.jpg">
+                    <h3>Portaretratos</h3>
+                    <p>3.000 Puntos</p>
+                    <button onclick="realizarCanje(8)">Canjear</button>
+                </div>
+                <div class="producto">
+                    <img alt="vaso" src="./img/vaso.jpg">
+                    <h3>Vaso de Aluminio</h3>
+                    <p>1.500 Puntos</p>
+                    <button onclick="realizarCanje(9)">Canjear</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- PIE DE PÁGINA -->
+    <footer>
+        <div class="pie">
+            <p>creada por <b>Chiky</b> 2022 ©</p>
+        </div>
+    </footer>
+
+</body>
+</html>
