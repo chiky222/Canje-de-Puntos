@@ -22,16 +22,14 @@ function validarPuntos() {
 
 validarPuntos();
 
-function consultarPuntos(puntos) {
-    puntos = puntosUsuario;
-    alert(`Con ${puntos} puntos estos son los productos disponibles, seleccioná el que querés canjear.`);       
+function consultarPuntos() {
+    alert(`Con ${puntosUsuario} puntos estos son los productos disponibles, seleccioná el que querés canjear.`);       
     filtroProductos();
 }
 
-function filtroProductos(puntos) {
-    puntos = puntosUsuario;
+function filtroProductos() {
     for (let i = 0; i < 10; i++) {        
-        if (puntos >= costoProductosSimulacro[i]) {
+        if (puntosUsuario >= costoProductosSimulacro[i]) {
             //Se realizará un filtro para mostrar o no los productos, dependiendo si le alcanza con los puntos que tiene el usuario.
             console.log(`Se va a mostrar en la página ${detalleProductosSimulacro[i]}.`)
         } else {
@@ -41,9 +39,9 @@ function filtroProductos(puntos) {
 }
 
 function realizarCanje(indice) {
-    //Se compureba que haya stock del producto que se desea canjear y que al menos tenga el mínimo de puntos requeridos. Si hay, se disminuye 1 y se restan los puntos.
+    //Se compureba que haya stock del producto que se desea canjear. Si hay, se disminuye 1 y se restan los puntos.
     if (stockProductosSimulacro[indice] >= 1) {
-        if (puntosUsuario >= 900 && puntosUsuario >= costoProductosSimulacro[indice]) {
+        if (puntosUsuario >= costoProductosSimulacro[indice]) {
             puntosUsuario -= costoProductosSimulacro[indice];
             stockProductosSimulacro[indice] -= 1;
             alert(`¡Canje realizado correctamente! Te quedan ${puntosUsuario} puntos.`);
