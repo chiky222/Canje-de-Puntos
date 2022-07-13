@@ -47,7 +47,7 @@ function consultarPuntos() {
 }
 
 function filtroProductos(puntos) {
-    for (let i = 0; i < 10; i++) {        
+    for (let i = 0; i < todosLosProductos.length; i++) {        
         if (puntos >= todosLosProductos[i].costo) {
             //Se realizará un filtro para mostrar o no los productos, dependiendo si le alcanza con los puntos que tiene el usuario.
             console.log(`Se va a mostrar en la página ${todosLosProductos[i].costo}.`)
