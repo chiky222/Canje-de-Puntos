@@ -52,11 +52,9 @@ function filtroProductos(puntos) {
     console.log(productosFiltrados);
 }
 
-//Función para mostrar en consola los canjes realizados por el usuario con el costo.
+//Función para mostrar en consola los canjes realizados por el usuario con el respectivo costo.
 function mostrarCanjesRealizados() {
-    for (const canje of canjesRealizados) {
-        console.log("Canjeaste " + canje.detalle + " por " + canje.costo + " puntos.");
-    }
+    canjesRealizados.forEach((canje) => console.log("Canjeaste " + canje.detalle + " por " + canje.costo + " puntos."));
 }
 
 function realizarCanje(indice) {
