@@ -47,15 +47,9 @@ function consultarPuntos() {
 }
 
 function filtroProductos(puntos) {
-    for (let i = 0; i < todosLosProductos.length; i++) {        
-        if (puntos >= todosLosProductos[i].costo) {
-            //Se realizará un filtro para mostrar o no los productos, dependiendo si le alcanza con los puntos que tiene el usuario.
-            console.log(`Se va a mostrar en la página ${todosLosProductos[i].costo}.`)
-        } else {
-            console.log(`Se filtra y no se va a mostrar en la página ${todosLosProductos[i].costo}.`)
-        }
-    }
-    console.log("------------------------------------");
+    //Se filtran los productos con el método filter, para que se muestren sólo los que se pueden canejar
+    let productosFiltrados = todosLosProductos.filter((el) => el.costo <= puntos);
+    console.log(productosFiltrados);
 }
 
 //Función para mostrar en consola los canjes realizados por el usuario con el costo.
