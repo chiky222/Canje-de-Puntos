@@ -1,5 +1,7 @@
-//Pido puntos del usuario mediante prompt, pero la idea es más adelante que el usuario lo introduzca en el input de html y con ese mismo dato ingresado realizar la consulta.
+//Pido puntos del usuario mediante prompt.
+let muestraPuntos = document.getElementById("puntosIngresadosValor");
 let puntosUsuario = parseInt(prompt("Ingresá cuantos puntos tenés: "));
+muestraPuntos.innerText = puntosUsuario;
 
 //Función constructora de Productos, creación de los Productos, y guardado de los mismos en todosLosProductos.
 function Productos(codigoProductos, detalleProductos, costoProductos, stockProductos){
@@ -48,13 +50,23 @@ function consultarPuntos() {
 
 function filtroProductos(puntos) {
     //Se filtran los productos con el método filter, para que se muestren sólo los que se pueden canejar
-    let productosFiltrados = todosLosProductos.filter((el) => el.costo <= puntos);
-    console.log(productosFiltrados);
+    let productosFiltrados = todosLosProductos.filter((el) => el.costo > puntos);
+    for (producto in productosFiltrados) {
+        document.getElementById(`${productosFiltrados[producto].detalle}`).classList.add("-hide");
+    }
+    //En caso de que se filtren todos los productos, cambio H2 de .productos-disponibles
+    if(productosFiltrados.length == 10){
+        let container = document.querySelector(".productos-disponibles h2");
+        container.innerText = "¡No te alcanza para canjear ningún producto!  =(";
+    }
 }
 
 //Función para mostrar en consola los canjes realizados por el usuario con el respectivo costo.
-function mostrarCanjesRealizados() {
-    canjesRealizados.forEach((canje) => console.log("Canjeaste " + canje.detalle + " por " + canje.costo + " puntos."));
+function mostrarCanjesRealizados(canje) {
+    let lista = document.getElementById("listaCanjes");
+    let item = document.createElement("li");
+    item.innerHTML = `<p>Canjeaste ${canje.detalle} por ${canje.costo} puntos.</p>`;
+    lista.appendChild(item);    
 }
 
 function realizarCanje(indice) {
@@ -63,11 +75,12 @@ function realizarCanje(indice) {
         if (puntosUsuario >= todosLosProductos[indice].costo) {
             puntosUsuario -= todosLosProductos[indice].costo;
             todosLosProductos[indice].stock -= 1;
+            muestraPuntos.innerText = puntosUsuario;
             //Agrego elemento a canjesRealizados con método Push
-            canjesRealizados.push(todosLosProductos[indice]);
-            alert(`¡Canje realizado correctamente! Te quedan ${puntosUsuario} puntos.`);            
+            canjesRealizados.push(todosLosProductos[indice]);        
             filtroProductos(puntosUsuario);
-            mostrarCanjesRealizados();
+            mostrarCanjesRealizados(todosLosProductos[indice]);
+            alert(`¡Canje realizado correctamente! Te quedan ${puntosUsuario} puntos.`);
         } else {
             alert("No tenés puntos suficientes para realizar el canje. ¡Seguí sumando!");
         }
