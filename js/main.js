@@ -4,25 +4,39 @@ let puntosUsuario = parseInt(prompt("Ingresá cuantos puntos tenés: "));
 muestraPuntos.innerText = puntosUsuario;
 
 //Función constructora de Productos, creación de los Productos, y guardado de los mismos en todosLosProductos.
-function Productos(codigoProductos, detalleProductos, costoProductos, stockProductos){
+function Productos(codigoProductos, detalleProductos, costoProductos, stockProductos, src){
     this.codigo = codigoProductos;
     this.detalle = detalleProductos;
     this.costo = costoProductos;
     this.stock = stockProductos;
+    this.src = src;
 }
 
-let mate = new Productos(000, "Mate", 900, 20);
-let termo = new Productos(111, "Termo", 1500, 5);
-let chopCervecero = new Productos(222, "Chop Cervecero", 1200, 10);
-let kitAsado = new Productos(333, "Kit Asado", 7500, 6);
-let botinero = new Productos(444, "Botinero", 2000, 30);
-let mazoDeCartas = new Productos(555, "Mazo de Cartas", 1000, 0);
-let camisetaArgentina = new Productos(666, "Camiseta de Argentina", 10000, 25);
-let giftCard = new Productos(777, "Gift Card", 2000, 30);
-let portaretratos = new Productos(888, "Portaretratos", 3000, 9);
-let vasoAluminio = new Productos(999, "Vaso de Aluminio", 1500, 2);
+let mate = new Productos(000, "Mate", 900, 20, "./img/mate.jpg");
+let termo = new Productos(111, "Termo", 1500, 5, "./img/termo.jpg");
+let chopCervecero = new Productos(222, "Chop Cervecero", 1200, 10, "./img/chop.jpg");
+let kitAsado = new Productos(333, "Kit Asado", 7500, 6, "./img/kit-asado.jpg");
+let botinero = new Productos(444, "Botinero", 2000, 30, "./img/botinero.jpg");
+let mazoDeCartas = new Productos(555, "Mazo de Cartas", 1000, 0, "./img/cartas.jpg");
+let camisetaArgentina = new Productos(666, "Camiseta de Argentina", 10000, 25, "./img/camiseta.jpg");
+let giftCard = new Productos(777, "Gift Card", 2000, 30, "./img/giftcard.png");
+let portaretratos = new Productos(888, "Portaretratos", 3000, 9, "./img/portaretratos.jpg");
+let vasoAluminio = new Productos(999, "Vaso de Aluminio", 1500, 2, "./img/vaso.jpg");
 
 const todosLosProductos = [mate, termo, chopCervecero, kitAsado, botinero, mazoDeCartas, camisetaArgentina, giftCard, portaretratos, vasoAluminio];
+
+//Creación de cards con Javascript
+let contenedor = document.querySelector('.tarjetas-productos');
+let cards = "";
+
+todosLosProductos.forEach((producto) => {
+    const idHTML = producto.codigo;
+    index = todosLosProductos.indexOf(producto);
+    cards += `<div class="producto" id="${idHTML}"><img alt="${producto.detalle}" src="${producto.src}"><h3>Mate 3D</h3><p>${producto.costo} Puntos</p><button onclick=realizarCanje(${index})>Canjear</button></div>`
+});
+
+//Agrego el contenido de cards al div .tarjetas-productos
+contenedor.innerHTML += cards;
 
 //Creo canjesRealizados para guardar los objetos que canjea el usuario.
 const canjesRealizados = [];
@@ -36,6 +50,7 @@ function validarPuntos() {
         puntosUsuario = parseInt(prompt("Ingresá cuantos puntos tenés: "));
         validarPuntos();
     } else {
+        muestraPuntos.innerText = puntosUsuario;
         return;
     }
 }
@@ -52,7 +67,7 @@ function filtroProductos(puntos) {
     //Se filtran los productos con el método filter, para que se muestren sólo los que se pueden canejar
     let productosFiltrados = todosLosProductos.filter((el) => el.costo > puntos);
     for (producto in productosFiltrados) {
-        document.getElementById(`${productosFiltrados[producto].detalle}`).classList.add("-hide");
+        document.getElementById(`${productosFiltrados[producto].codigo}`).classList.add("-hide");
     }
     //En caso de que se filtren todos los productos, cambio H2 de .productos-disponibles
     if(productosFiltrados.length == 10){
