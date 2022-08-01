@@ -65,14 +65,23 @@ h1{
     display: inline;
     align-items: center;
     text-align: center;
-    margin-left: 15px;
-    padding: 0 20px;
+    margin-left: 5px;
+    padding: 0 2px;
     font-weight: 900!important;
     background-color: #ffffff;
     color: #0F1626!important;
     width: 60px;
     height: 25px;
+    overflow: hidden;
 }
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+input[type=number] { -moz-appearance:textfield; }
 
 #puntosIngresadosValor:hover,
 #puntosIngresadosValor:focus{
