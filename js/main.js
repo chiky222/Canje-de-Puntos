@@ -1,7 +1,9 @@
 //Pido puntos del usuario mediante prompt.
 let muestraPuntos = document.getElementById("puntosIngresadosValor");
-let puntosUsuario = parseInt(prompt("Ingresá cuantos puntos tenés: "));
-muestraPuntos.innerText = puntosUsuario;
+let puntosUsuario = parseInt(muestraPuntos.value);
+let actualizarPuntos = muestraPuntos.addEventListener(('change'), (e) => {
+    puntosUsuario = parseInt(muestraPuntos.value);
+});
 
 //Función constructora de Productos, creación de los Productos, y guardado de los mismos en todosLosProductos.
 function Productos(codigoProductos, detalleProductos, costoProductos, stockProductos, src){
@@ -41,21 +43,6 @@ contenedor.innerHTML += cards;
 //Creo canjesRealizados para guardar los objetos que canjea el usuario.
 const canjesRealizados = [];
 
-//Función para controlar el dato ingresado
-function validarPuntos() {
-    if (isNaN(puntosUsuario)) {
-        puntosUsuario = parseInt(prompt("Ingresá cuantos puntos tenés: "));
-        validarPuntos();
-    } else if (puntosUsuario <= 0) {
-        puntosUsuario = parseInt(prompt("Ingresá cuantos puntos tenés: "));
-        validarPuntos();
-    } else {
-        muestraPuntos.innerText = puntosUsuario;
-        return;
-    }
-}
-
-validarPuntos();
 filtroProductos(puntosUsuario);
 
 function consultarPuntos() {
@@ -90,7 +77,7 @@ function realizarCanje(indice) {
         if (puntosUsuario >= todosLosProductos[indice].costo) {
             puntosUsuario -= todosLosProductos[indice].costo;
             todosLosProductos[indice].stock -= 1;
-            muestraPuntos.innerText = puntosUsuario;
+            muestraPuntos.value = puntosUsuario;
             //Agrego elemento a canjesRealizados con método Push
             canjesRealizados.push(todosLosProductos[indice]);        
             filtroProductos(puntosUsuario);
