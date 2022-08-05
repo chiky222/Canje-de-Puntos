@@ -38,7 +38,7 @@ let cards = "";
 todosLosProductos.forEach((producto) => {
     const idHTML = producto.codigo;
     index = todosLosProductos.indexOf(producto);
-    cards += `<div class="producto" id="${idHTML}"><img alt="${producto.detalle}" src="${producto.src}"><h3>Mate 3D</h3><p>${producto.costo} Puntos</p><button onclick=realizarCanje(${index})>Canjear</button></div>`
+    cards += `<div class="producto" id="${idHTML}"><img alt="${producto.detalle}" src="${producto.src}"><h3>${producto.detalle}</h3><p>${producto.costo} Puntos</p><button onclick=realizarCanje(${index})>Canjear</button></div>`
 });
 
 //Agrego el contenido de cards al div .tarjetas-productos
@@ -87,6 +87,7 @@ function realizarCanje(indice) {
             filtroProductos(puntosUsuario);
             mostrarCanjesRealizados(todosLosProductos[indice]);
             alert(`¡Canje realizado correctamente! Te quedan ${puntosUsuario} puntos.`);
+            //Guardo puntosUsuario actualizado en localStorage.
             localStorage.setItem("puntos", puntosUsuario);
         } else {
             alert("No tenés puntos suficientes para realizar el canje. ¡Seguí sumando!");
