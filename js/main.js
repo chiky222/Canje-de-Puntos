@@ -1,8 +1,12 @@
-//Pido puntos del usuario mediante prompt.
+//Espacio en input para que el usuario cargue sus puntos o utilice los que hay por defecto (o en localStorage).
 let muestraPuntos = document.getElementById("puntosIngresadosValor");
-let puntosUsuario = parseInt(muestraPuntos.value);
+//Obtengo datos de Storage.
+let puntosUsuario = JSON.parse(localStorage.getItem("puntos")) ?? parseInt(muestraPuntos.value);
+muestraPuntos.value = puntosUsuario;
 let actualizarPuntos = muestraPuntos.addEventListener(('change'), (e) => {
     puntosUsuario = parseInt(muestraPuntos.value);
+    localStorage.setItem("puntos", puntosUsuario);
+    location.reload();
 });
 
 //Función constructora de Productos, creación de los Productos, y guardado de los mismos en todosLosProductos.
@@ -45,9 +49,9 @@ const canjesRealizados = [];
 
 filtroProductos(puntosUsuario);
 
-function consultarPuntos() {
-    alert(`Con ${puntosUsuario} puntos estos son los productos disponibles, seleccioná el que querés canjear.`);       
+function consultarPuntos() {       
     filtroProductos(puntosUsuario);
+    alert(`Con ${puntosUsuario} puntos estos son los productos disponibles, seleccioná el que querés canjear.`);
 }
 
 function filtroProductos(puntos) {
@@ -83,6 +87,7 @@ function realizarCanje(indice) {
             filtroProductos(puntosUsuario);
             mostrarCanjesRealizados(todosLosProductos[indice]);
             alert(`¡Canje realizado correctamente! Te quedan ${puntosUsuario} puntos.`);
+            localStorage.setItem("puntos", puntosUsuario);
         } else {
             alert("No tenés puntos suficientes para realizar el canje. ¡Seguí sumando!");
         }
