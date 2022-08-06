@@ -35,9 +35,8 @@ const todosLosProductos = [mate, termo, chopCervecero, kitAsado, botinero, mazoD
 let contenedor = document.querySelector('.tarjetas-productos');
 let cards = "";
 
-todosLosProductos.forEach((producto) => {
+todosLosProductos.forEach((producto, index) => {
     const idHTML = producto.codigo;
-    index = todosLosProductos.indexOf(producto);
     cards += `<div class="producto" id="${idHTML}"><img alt="${producto.detalle}" src="${producto.src}"><h3>${producto.detalle}</h3><p>${producto.costo} Puntos</p><button onclick=realizarCanje(${index})>Canjear</button></div>`
 });
 
