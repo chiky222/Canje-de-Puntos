@@ -1,8 +1,17 @@
 //Espacio en input para que el usuario cargue sus puntos o utilice los que hay por defecto (o en localStorage).
 let muestraPuntos = document.getElementById("puntosIngresadosValor");
+
 //Obtengo datos de Storage.
 let puntosUsuario = JSON.parse(localStorage.getItem("puntos")) ?? parseInt(muestraPuntos.value);
+let canjesRealizados = JSON.parse(localStorage.getItem("canjeados")) ?? [];
 muestraPuntos.value = puntosUsuario;
+
+//Paso al HTML los canjes ya realizados anteriormente si existen.
+for (canje of canjesRealizados){
+    mostrarCanjesRealizados(canje);
+}
+
+//Actualizo puntos cada vez que se modifica el Input y actualizo la página.
 let actualizarPuntos = muestraPuntos.addEventListener(('change'), (e) => {
     puntosUsuario = parseInt(muestraPuntos.value);
     localStorage.setItem("puntos", puntosUsuario);
@@ -43,9 +52,6 @@ todosLosProductos.forEach((producto, index) => {
 //Agrego el contenido de cards al div .tarjetas-productos
 contenedor.innerHTML += cards;
 
-//Creo canjesRealizados para guardar los objetos que canjea el usuario.
-const canjesRealizados = [];
-
 filtroProductos(puntosUsuario);
 
 function consultarPuntos() {       
@@ -66,11 +72,11 @@ function filtroProductos(puntos) {
     }
 }
 
-//Función para mostrar en consola los canjes realizados por el usuario con el respectivo costo.
+//Función para mostrar los canjes realizados por el usuario con el respectivo costo.
 function mostrarCanjesRealizados(canje) {
     let lista = document.getElementById("listaCanjes");
     let item = document.createElement("li");
-    item.innerHTML = `<p>Canjeaste ${canje.detalle} por ${canje.costo} puntos.</p>`;
+    item.innerHTML += `<p>Canjeaste ${canje.detalle} por ${canje.costo} puntos.</p>`;
     lista.appendChild(item);    
 }
 
@@ -86,8 +92,9 @@ function realizarCanje(indice) {
             filtroProductos(puntosUsuario);
             mostrarCanjesRealizados(todosLosProductos[indice]);
             alert(`¡Canje realizado correctamente! Te quedan ${puntosUsuario} puntos.`);
-            //Guardo puntosUsuario actualizado en localStorage.
+            //Guardo puntosUsuario y canjesRealizados actualizado en localStorage.
             localStorage.setItem("puntos", puntosUsuario);
+            localStorage.setItem("canjeados", JSON.stringify(canjesRealizados));
         } else {
             alert("No tenés puntos suficientes para realizar el canje. ¡Seguí sumando!");
         }
