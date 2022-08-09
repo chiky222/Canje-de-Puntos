@@ -158,7 +158,7 @@ input[type=number] { -moz-appearance:textfield; }
     color: #ffffff;
 }
 
-.producto.-hide{
+.-hide{
     display: none;
 }
 
@@ -180,6 +180,13 @@ input[type=number] { -moz-appearance:textfield; }
     align-items: center;
     text-align: center;
     color: #ffffff;
+}
+
+.titulo-canjes:hover{
+    color: #FF533D;
+    cursor: pointer;
+    text-shadow: #912f22 1px 1px 2px;
+    transition: all 0.2s ease-in-out;
 }
 
 .mis-canjes{

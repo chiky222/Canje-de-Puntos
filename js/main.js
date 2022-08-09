@@ -1,5 +1,6 @@
 //Espacio en input para que el usuario cargue sus puntos o utilice los que hay por defecto (o en localStorage).
 let muestraPuntos = document.getElementById("puntosIngresadosValor");
+let lista = document.getElementById("listaCanjes");
 
 //Obtengo datos de Storage.
 let puntosUsuario = JSON.parse(localStorage.getItem("puntos")) ?? parseInt(muestraPuntos.value);
@@ -74,7 +75,6 @@ function filtroProductos(puntos) {
 
 //Función para mostrar los canjes realizados por el usuario con el respectivo costo.
 function mostrarCanjesRealizados(canje) {
-    let lista = document.getElementById("listaCanjes");
     let item = document.createElement("li");
     item.innerHTML += `<p>Canjeaste ${canje.detalle} por ${canje.costo} puntos.</p>`;
     lista.appendChild(item);    
@@ -91,6 +91,8 @@ function realizarCanje(indice) {
             canjesRealizados.push(todosLosProductos[indice]);        
             filtroProductos(puntosUsuario);
             mostrarCanjesRealizados(todosLosProductos[indice]);
+            borrarElementoCanjeado();
+            console.log(faltanCanjear);
             alert(`¡Canje realizado correctamente! Te quedan ${puntosUsuario} puntos.`);
             //Guardo puntosUsuario y canjesRealizados actualizado en localStorage.
             localStorage.setItem("puntos", puntosUsuario);
@@ -102,4 +104,32 @@ function realizarCanje(indice) {
         alert("¡No hay stock del producto seleccionado!. Probá mañana o consultanos por cualquier medio.");
         return;
     }    
+}
+
+//Agrego evento para que al hacer click en Mis Canjes se muestre/oculte el listado - Aplico operador ternario.
+let tituloCanjes = document.querySelector(".titulo-canjes");
+tituloCanjes.addEventListener("click", (e) => canjesRealizados != "" ? switchCanjes() : null);
+
+function switchCanjes(){
+    lista.classList.toggle("-hide");
+}
+
+//Datos para mostrar en la consola utilizando spread y desestructuración.
+console.log("\nDatos para uso interno.\n\n")
+//Productos ordenados de menor a mayor costo utilizando spread del array.
+let productosOrdenados = [...todosLosProductos];
+productosOrdenados.sort((a, b) => a.costo - b.costo);
+console.log(productosOrdenados);
+
+//Monto necesario para canjear todos los puntos
+let sumaCostosProductos = productosOrdenados.reduce((inicial, actual) => inicial + actual.costo, 0);
+console.log("\nSe necesitan " + sumaCostosProductos + " para canjear una unidad de todos los productos.\n\n");
+
+//Stock de productos con desectructuración
+const stockDeProductos = ( {codigo, stock} ) => {
+    console.log("El producto código " + codigo,"tiene un stock de " + stock + " unidades.");
+}
+console.log("--------------------LISTADO DE STOCK--------------------");
+for (producto of productosOrdenados){
+    stockDeProductos(producto);
 }
