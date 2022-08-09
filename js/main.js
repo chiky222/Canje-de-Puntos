@@ -91,8 +91,6 @@ function realizarCanje(indice) {
             canjesRealizados.push(todosLosProductos[indice]);        
             filtroProductos(puntosUsuario);
             mostrarCanjesRealizados(todosLosProductos[indice]);
-            borrarElementoCanjeado();
-            console.log(faltanCanjear);
             alert(`¡Canje realizado correctamente! Te quedan ${puntosUsuario} puntos.`);
             //Guardo puntosUsuario y canjesRealizados actualizado en localStorage.
             localStorage.setItem("puntos", puntosUsuario);
