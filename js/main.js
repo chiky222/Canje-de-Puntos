@@ -104,13 +104,20 @@ function realizarCanje(indice) {
     }    
 }
 
-//Agrego evento para que al hacer click en Mis Canjes se muestre/oculte el listado - Aplico operador ternario.
+//Agrego evento para que al hacer click en Mis Canjes se muestre/oculte el listado
+//Aplico operador ternario. Además agrego evento para ocultar/mostrar Productos.
 let tituloCanjes = document.querySelector(".titulo-canjes");
-tituloCanjes.addEventListener("click", (e) => canjesRealizados != "" ? switchCanjes() : null);
+let tituloProductos = document.querySelector(".titulo-productos");
+let tarjetasProductos = document.querySelector(".tarjetas-productos");
 
-function switchCanjes(){
-    lista.classList.toggle("-hide");
+tituloCanjes.addEventListener("click", (e) => canjesRealizados != "" ? switchCanjes(lista) : null);
+tituloProductos.addEventListener("click", (e) => switchCanjes(tarjetasProductos));
+
+function switchCanjes(elemento){
+    elemento.classList.toggle("-hide");
 }
+
+
 
 //Datos para mostrar en la consola utilizando spread y desestructuración.
 console.log("\nDatos para uso interno.\n\n")
