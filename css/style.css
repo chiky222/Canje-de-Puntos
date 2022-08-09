@@ -97,6 +97,8 @@ input[type=number] { -moz-appearance:textfield; }
 .productos-disponibles h2{
     font-size: 1.2rem;
     color: #ffffff;
+    text-decoration-line: underline;
+    text-decoration-thickness: 2px;
 }
 
 .productos-disponibles p{
@@ -183,6 +185,13 @@ input[type=number] { -moz-appearance:textfield; }
 }
 
 .titulo-canjes:hover{
+    color: #FF533D;
+    cursor: pointer;
+    text-shadow: #912f22 1px 1px 2px;
+    transition: all 0.2s ease-in-out;
+}
+
+.titulo-productos:hover{
     color: #FF533D;
     cursor: pointer;
     text-shadow: #912f22 1px 1px 2px;
