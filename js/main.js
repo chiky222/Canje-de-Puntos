@@ -105,6 +105,14 @@ function realizarCanje(indice) {
             //Guardo puntosUsuario y canjesRealizados actualizado en localStorage.
             localStorage.setItem("puntos", puntosUsuario);
             localStorage.setItem("canjeados", JSON.stringify(canjesRealizados));
+            //Alerta para recordar actualizar el gráfico con los nuevos canjes usando Toast
+            Toastify({
+                text: "Hacé click en Gráfico para actualizarlo",                
+                duration: 3000,
+                style: {
+                    background: "linear-gradient(to right, #00b09b, #96c93d)",
+                }
+                }).showToast();
         } else {
             mensajeSweetAlert(`¡Malas noticias!`, `No tenés puntos suficientes para realizar el canje. ¡Seguí sumando!`, '', 'Volver');
         }
@@ -159,3 +167,39 @@ console.log("--------------------LISTADO DE STOCK--------------------");
 for (producto of productosOrdenados){
     stockDeProductos(producto);
 }
+
+//Librería Chart.JS
+let leyenda = [];
+let series = [];
+
+//Creo Etiquetas Dinámicas
+for(let i = 0; i < canjesRealizados.length; i++){
+    leyenda.push(`${canjesRealizados[i].detalle}`);
+    series.push(`${canjesRealizados[i].costo}`);
+}
+
+const labels = [...leyenda];
+
+const data = {
+labels: labels,
+    datasets: [{
+        label: 'GRÁFICO DE PRODUCTOS CANJEADOS',
+        backgroundColor: ['rgb(255, 99, 132)', 'rgb(126, 99, 255)', 'rgb(126, 255, 120)'],
+        borderColor: ['rgb(255, 99, 132)', 'rgb(126, 99, 255)', 'rgb(126, 255, 120)'],
+        data: [...series],
+    }]
+};
+
+const config = {
+    type: 'bar',
+    data: data,
+    options: {}
+};
+
+//Renderizo Gráfico
+setInterval(() => {
+    const myChart = new Chart(document.getElementById('myChart'), config);
+}, 1000);
+
+let botonGrafico = document.querySelector('.btn-grafico');
+botonGrafico.addEventListener("click", (e) => location.reload());
