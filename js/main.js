@@ -13,7 +13,7 @@ for (canje of canjesRealizados){
 }
 
 //Actualizo puntos cada vez que se modifica el Input y actualizo la página.
-let actualizarPuntos = muestraPuntos.addEventListener(('change'), (e) => {
+muestraPuntos.addEventListener(('change'), (e) => {
     puntosUsuario = parseInt(muestraPuntos.value);
     localStorage.setItem("puntos", puntosUsuario);
     location.reload();
@@ -55,9 +55,19 @@ contenedor.innerHTML += cards;
 
 filtroProductos(puntosUsuario);
 
+function mensajeSweetAlert(titular, texto, icono, textoBoton){
+    Swal.fire({
+        title: titular,
+        text: texto,
+        icon: icono,
+        confirmButtonText: textoBoton
+      });
+}
+
 function consultarPuntos() {       
     filtroProductos(puntosUsuario);
-    alert(`Con ${puntosUsuario} puntos estos son los productos disponibles, seleccioná el que querés canjear.`);
+    //lert(`Con ${puntosUsuario} puntos estos son los productos disponibles, seleccioná el que querés canjear.`);
+    mensajeSweetAlert(`¡Tenés ${puntosUsuario} puntos!`, 'Estos son los productos que podés Canjear', '', 'Continuar');
 }
 
 function filtroProductos(puntos) {
@@ -67,7 +77,7 @@ function filtroProductos(puntos) {
         document.getElementById(`${productosFiltrados[producto].codigo}`).classList.add("-hide");
     }
     //En caso de que se filtren todos los productos, cambio H2 de .productos-disponibles
-    if(productosFiltrados.length == 10){
+    if(productosFiltrados.length == todosLosProductos.length){
         let container = document.querySelector(".productos-disponibles h2");
         container.innerText = "¡No te alcanza para canjear ningún producto!  =(";
     }
@@ -91,17 +101,25 @@ function realizarCanje(indice) {
             canjesRealizados.push(todosLosProductos[indice]);        
             filtroProductos(puntosUsuario);
             mostrarCanjesRealizados(todosLosProductos[indice]);
-            alert(`¡Canje realizado correctamente! Te quedan ${puntosUsuario} puntos.`);
+            mensajeSweetAlert(`¡Canje realizado correctamente!`, `Te quedan ${puntosUsuario} puntos.`, 'success', 'Seguir Canjeando');
             //Guardo puntosUsuario y canjesRealizados actualizado en localStorage.
             localStorage.setItem("puntos", puntosUsuario);
             localStorage.setItem("canjeados", JSON.stringify(canjesRealizados));
+            //Alerta para recordar actualizar el gráfico con los nuevos canjes usando Toast
+            Toastify({
+                text: "Hacé click en Gráfico para actualizarlo",                
+                duration: 3000,
+                style: {
+                    background: "linear-gradient(to right, #00b09b, #96c93d)",
+                }
+                }).showToast();
         } else {
-            alert("No tenés puntos suficientes para realizar el canje. ¡Seguí sumando!");
+            mensajeSweetAlert(`¡Malas noticias!`, `No tenés puntos suficientes para realizar el canje. ¡Seguí sumando!`, '', 'Volver');
         }
-    } else {
-        alert("¡No hay stock del producto seleccionado!. Probá mañana o consultanos por cualquier medio.");
+    } else {        
+        mensajeSweetAlert(`¡Ups!`, `No hay stock del producto seleccionado, probá mañana o consultanos por cualquier medio.`, 'question', 'Volver');
         return;
-    }    
+    }
 }
 
 //Agrego evento para que al hacer click en Mis Canjes se muestre/oculte el listado
@@ -117,7 +135,18 @@ function switchCanjes(elemento){
     elemento.classList.toggle("-hide");
 }
 
+//Funcion para reiniciar el historial
+function reiniciarHistorial(){
+    puntosUsuario = 20000;
+    canjesRealizados = [];
+    localStorage.setItem("puntos", puntosUsuario);
+    localStorage.setItem("canjeados", JSON.stringify(canjesRealizados));
+    location.reload();
+}
 
+//Escucho evento de click en el boton de reinicio y borro historial
+let botonReinicio = document.querySelector('.btn-reinicio');
+botonReinicio.addEventListener("click", (e) => reiniciarHistorial());
 
 //Datos para mostrar en la consola utilizando spread y desestructuración.
 console.log("\nDatos para uso interno.\n\n")
@@ -138,3 +167,39 @@ console.log("--------------------LISTADO DE STOCK--------------------");
 for (producto of productosOrdenados){
     stockDeProductos(producto);
 }
+
+//Librería Chart.JS
+let leyenda = [];
+let series = [];
+
+//Creo Etiquetas Dinámicas
+for(let i = 0; i < canjesRealizados.length; i++){
+    leyenda.push(`${canjesRealizados[i].detalle}`);
+    series.push(`${canjesRealizados[i].costo}`);
+}
+
+const labels = [...leyenda];
+
+const data = {
+labels: labels,
+    datasets: [{
+        label: 'GRÁFICO DE PRODUCTOS CANJEADOS',
+        backgroundColor: ['rgb(255, 99, 132)', 'rgb(126, 99, 255)', 'rgb(126, 255, 120)'],
+        borderColor: ['rgb(255, 99, 132)', 'rgb(126, 99, 255)', 'rgb(126, 255, 120)'],
+        data: [...series],
+    }]
+};
+
+const config = {
+    type: 'bar',
+    data: data,
+    options: {}
+};
+
+//Renderizo Gráfico
+setInterval(() => {
+    const myChart = new Chart(document.getElementById('myChart'), config);
+}, 1000);
+
+let botonGrafico = document.querySelector('.btn-grafico');
+botonGrafico.addEventListener("click", (e) => location.reload());

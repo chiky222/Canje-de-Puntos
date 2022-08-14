@@ -10,7 +10,10 @@
     <!-- GOOGLE FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald&display=swap" rel="stylesheet">    
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <!-- CHART JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <!-- TITULO Y CABECERA -->
@@ -38,10 +41,16 @@
             <div class="mis-canjes">
                 <ul id="listaCanjes"></ul>
             </div>
+            <button class="btn-reinicio">Reiniciar</button>
+            <button class="btn-grafico">Grafico</button>
+        </div>
+        <div id="grafico-container">
+            <canvas id="myChart"></canvas>
         </div>
         <!-- LINK A JS -->
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script type="text/javascript" src="./js/main.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     </main>
     <!-- PIE DE PÁGINA -->
     <footer>
