@@ -126,11 +126,9 @@ function realizarCanje(indice) {
 
 //Agrego evento para que al hacer click en Mis Canjes se muestre/oculte el listado
 //Aplico operador ternario. Además agrego evento para ocultar/mostrar Productos.
-let tituloCanjes = document.querySelector(".titulo-canjes");
 let tituloProductos = document.querySelector(".titulo-productos");
 let tarjetasProductos = document.querySelector(".tarjetas-productos");
 
-tituloCanjes.addEventListener("click", (e) => canjesRealizados != "" ? switchCanjes(lista) : null);
 tituloProductos.addEventListener("click", (e) => switchCanjes(tarjetasProductos));
 
 function switchCanjes(elemento){
