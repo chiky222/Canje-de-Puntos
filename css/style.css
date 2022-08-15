@@ -287,11 +287,11 @@ input[type=number] { -moz-appearance:textfield; }
 
 #grafico-container{
     display: flex;
-    width: 60vw;
+    width: 50vw;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 20px 400px;
+    margin: 0 auto;
     background-color: #ffffff;
 }
 
@@ -311,4 +311,13 @@ b{
 
 .producto button{
     display: block;
+}
+
+@media (max-width: 800px){
+    #grafico-container{
+        min-width: 300px;
+    }
+    .tarjetas-productos{
+        min-width: 300px;
+    }
 }

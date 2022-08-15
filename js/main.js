@@ -35,9 +35,9 @@ let kitAsado = new Productos(333, "Kit Asado", 7500, 6, "./img/kit-asado.jpg");
 let botinero = new Productos(444, "Botinero", 2000, 30, "./img/botinero.jpg");
 let mazoDeCartas = new Productos(555, "Mazo de Cartas", 1000, 0, "./img/cartas.jpg");
 let camisetaArgentina = new Productos(666, "Camiseta de Argentina", 10000, 25, "./img/camiseta.jpg");
-let giftCard = new Productos(777, "Gift Card", 2000, 30, "./img/giftcard.png");
+let giftCard = new Productos(777, "Gift Card", 2500, 30, "./img/giftcard.png");
 let portaretratos = new Productos(888, "Portaretratos", 3000, 9, "./img/portaretratos.jpg");
-let vasoAluminio = new Productos(999, "Vaso de Aluminio", 1500, 2, "./img/vaso.jpg");
+let vasoAluminio = new Productos(999, "Vaso de Aluminio", 2200, 2, "./img/vaso.jpg");
 
 const todosLosProductos = [mate, termo, chopCervecero, kitAsado, botinero, mazoDeCartas, camisetaArgentina, giftCard, portaretratos, vasoAluminio];
 
@@ -101,7 +101,9 @@ function realizarCanje(indice) {
             canjesRealizados.push(todosLosProductos[indice]);        
             filtroProductos(puntosUsuario);
             mostrarCanjesRealizados(todosLosProductos[indice]);
-            mensajeSweetAlert(`¡Canje realizado correctamente!`, `Te quedan ${puntosUsuario} puntos.`, 'success', 'Seguir Canjeando');
+            const mensajeConfirmacion = setTimeout(() => {
+                mensajeSweetAlert(`¡Canje realizado correctamente!`, `Te quedan ${puntosUsuario} puntos.`, 'success', 'Seguir Canjeando');
+            },300);
             //Guardo puntosUsuario y canjesRealizados actualizado en localStorage.
             localStorage.setItem("puntos", puntosUsuario);
             localStorage.setItem("canjeados", JSON.stringify(canjesRealizados));
@@ -197,9 +199,7 @@ const config = {
 };
 
 //Renderizo Gráfico
-setInterval(() => {
-    const myChart = new Chart(document.getElementById('myChart'), config);
-}, 1000);
+const myChart = new Chart(document.getElementById('myChart'), config);
 
 let botonGrafico = document.querySelector('.btn-grafico');
 botonGrafico.addEventListener("click", (e) => location.reload());
