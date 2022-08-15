@@ -101,20 +101,23 @@ function realizarCanje(indice) {
             canjesRealizados.push(todosLosProductos[indice]);        
             filtroProductos(puntosUsuario);
             mostrarCanjesRealizados(todosLosProductos[indice]);
+
+            //Alerta para recordar actualizar el gráfico con los nuevos canjes usando Toast
             const mensajeConfirmacion = setTimeout(() => {
-                mensajeSweetAlert(`¡Canje realizado correctamente!`, `Te quedan ${puntosUsuario} puntos.`, 'success', 'Seguir Canjeando');
-            },300);
+                Toastify({
+                    text: "Hacé click en Gráfico para actualizarlo",                
+                    duration: 2000,
+                    style: {
+                        background: "linear-gradient(to right, #0F1626, #FF533D)",
+                    }
+                }).showToast();
+            },1200);
+
             //Guardo puntosUsuario y canjesRealizados actualizado en localStorage.
             localStorage.setItem("puntos", puntosUsuario);
             localStorage.setItem("canjeados", JSON.stringify(canjesRealizados));
-            //Alerta para recordar actualizar el gráfico con los nuevos canjes usando Toast
-            Toastify({
-                text: "Hacé click en Gráfico para actualizarlo",                
-                duration: 3000,
-                style: {
-                    background: "linear-gradient(to right, #00b09b, #96c93d)",
-                }
-                }).showToast();
+            mensajeSweetAlert(`¡Canje realizado correctamente!`, `Te quedan ${puntosUsuario} puntos.`, 'success', 'Seguir Canjeando');
+            
         } else {
             mensajeSweetAlert(`¡Malas noticias!`, `No tenés puntos suficientes para realizar el canje. ¡Seguí sumando!`, '', 'Volver');
         }
