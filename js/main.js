@@ -230,5 +230,5 @@ setInterval(() => {
 //Conecto botón para mostrar cotizaciones con un SweetAlert
 let botonDolar = document.querySelector('.btn-dolar');
 botonDolar.addEventListener('click', (e) => {
-    mensajeSweetAlert(`Cotización del Dólar`, `Compra: ${ultimaCotizacionBlueCompra}\n Venta: ${ultimaCotizacionBlueVenta}`, 'info', 'Volver')
+    mensajeSweetAlert(`Cotización del Dólar Blue`, `Compra: ${ultimaCotizacionBlueCompra} - Venta: ${ultimaCotizacionBlueVenta}`, 'info', 'Volver')
 });
