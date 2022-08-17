@@ -274,7 +274,7 @@ input[type=number] { -moz-appearance:textfield; }
 }
 
 .btn-grafico:hover{
-    box-shadow: #430801 1px 1px 1.5px, #27af57 5px 5px;
+    box-shadow: #234301 1px 1px 1.5px, #27af57 5px 5px;
     text-shadow: #ffffff 0 0 1px;
     transition: all 0.2s ease-in-out;
 }
@@ -305,6 +305,30 @@ b{
 
 .producto button{
     display: block;
+}
+
+.btn-dolar{
+    display: flex;
+    margin: 5px auto;
+    font-size: 0.8rem;
+    color: #ffffff;
+    background-color: #1e1a50;
+    box-shadow: #430801 0px 0px 0px, #FF533D 1px 1px;
+    height: 80px;
+    width: 190px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 30px;
+    border: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-dolar:hover{
+    box-shadow: #430801 1px 1px 1.5px, #FF533D 5px 5px;
+    text-shadow: #ffffff 0 0 1px;
+    transition: all 0.2s ease-in-out;
 }
 
 @media (max-width: 420px){
