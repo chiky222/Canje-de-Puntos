@@ -187,8 +187,8 @@ const data = {
 labels: labels,
     datasets: [{
         label: 'GRÁFICO DE PRODUCTOS CANJEADOS',
-        backgroundColor: ['rgb(255, 99, 132)', 'rgb(126, 99, 255)', 'rgb(126, 255, 120)'],
-        borderColor: ['rgb(255, 99, 132)', 'rgb(126, 99, 255)', 'rgb(126, 255, 120)'],
+        backgroundColor: ['rgb(255, 99, 132)', 'rgb(126, 99, 255)', 'rgb(126, 255, 120)', 'rgb(200, 30, 30)', 'rgb(30, 200, 30)', 'rgb(30, 30, 200)'],
+        borderColor: ['rgb(255, 99, 132)', 'rgb(126, 99, 255)', 'rgb(126, 255, 120)', 'rgb(200, 30, 30)', 'rgb(30, 200, 30)', 'rgb(30, 30, 200)'],
         data: [...series],
     }]
 };
@@ -204,3 +204,31 @@ const myChart = new Chart(document.getElementById('myChart'), config);
 
 let botonGrafico = document.querySelector('.btn-grafico');
 botonGrafico.addEventListener("click", (e) => location.reload());
+
+//Fetch para obtener cotización del Dolar Blue de Api Dolar - https://github.com/Castrogiovanni20/api-dolar-argentina
+let fechaCotizacion = '';
+let ultimaCotizacionBlueCompra = 0;
+let ultimaCotizacionBlueVenta = 0;
+
+const cotizacionDolarBlue = () => {
+	fetch("https://cors-solucion.herokuapp.com/https://api-dolar-argentina.herokuapp.com/api/dolarblue")
+        .then((response) => response.json())
+        .then(informacion => {
+            fechaCotizacion = informacion.fecha;
+            ultimaCotizacionBlueCompra = informacion.compra;
+            ultimaCotizacionBlueVenta = informacion.venta;
+        });
+}
+
+//Intervalo para obtener datos cada 300 segundos (5 minutos)
+//Ejecuto una vez para establecer valores iniciales
+cotizacionDolarBlue();
+setInterval(() => {
+    cotizacionDolarBlue();
+}, 300000);
+
+//Conecto botón para mostrar cotizaciones con un SweetAlert
+let botonDolar = document.querySelector('.btn-dolar');
+botonDolar.addEventListener('click', (e) => {
+    mensajeSweetAlert(`Cotización del Dólar`, `Compra: ${ultimaCotizacionBlueCompra}\n Venta: ${ultimaCotizacionBlueVenta}`, 'info', 'Volver')
+});
