@@ -254,31 +254,6 @@ input[type=number] { -moz-appearance:textfield; }
     transition: all 0.2s ease-in-out;
 }
 
-.btn-grafico{
-    display: inline;
-    margin-top: 20px;
-    margin-left: 20px;
-    font-size: 0.8rem;
-    color: #ffffff;
-    background-color: #FF533D;
-    box-shadow: #430801 0px 0px 0px, #27af57 1px 1px;
-    height: 30px;
-    width: 90px;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    cursor: pointer;
-    border-radius: 15px;
-    border: none;
-    transition: all 0.2s ease-in-out;
-}
-
-.btn-grafico:hover{
-    box-shadow: #234301 1px 1px 1.5px, #27af57 5px 5px;
-    text-shadow: #ffffff 0 0 1px;
-    transition: all 0.2s ease-in-out;
-}
-
 #grafico-container{
     display: flex;
     width: 50vw;
