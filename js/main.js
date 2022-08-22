@@ -98,25 +98,28 @@ function realizarCanje(indice) {
             todosLosProductos[indice].stock -= 1;
             muestraPuntos.value = puntosUsuario;
             //Agrego elemento a canjesRealizados con método Push
-            canjesRealizados.push(todosLosProductos[indice]);        
+            canjesRealizados.push(todosLosProductos[indice]);  
             filtroProductos(puntosUsuario);
             mostrarCanjesRealizados(todosLosProductos[indice]);
-
             //Alerta para recordar actualizar el gráfico con los nuevos canjes usando Toast
             const mensajeConfirmacion = setTimeout(() => {
                 Toastify({
-                    text: "Hacé click en Gráfico para actualizarlo",                
+                    text: "Los Datos se actualizarán en el Gráfico",                
                     duration: 2000,
                     style: {
                         background: "linear-gradient(to right, #0F1626, #FF533D)",
                     }
                 }).showToast();
-            },1200);
+            },1500);
 
             //Guardo puntosUsuario y canjesRealizados actualizado en localStorage.
             localStorage.setItem("puntos", puntosUsuario);
             localStorage.setItem("canjeados", JSON.stringify(canjesRealizados));
             mensajeSweetAlert(`¡Canje realizado correctamente!`, `Te quedan ${puntosUsuario} puntos.`, 'success', 'Seguir Canjeando');
+
+            setTimeout(() => {
+                updateChart();            
+            },3000);
             
         } else {
             mensajeSweetAlert(`¡Malas noticias!`, `No tenés puntos suficientes para realizar el canje. ¡Seguí sumando!`, '', 'Volver');
@@ -172,24 +175,16 @@ for (producto of productosOrdenados){
 }
 
 //Librería Chart.JS
-let leyenda = [];
-let series = [];
 
-//Creo Etiquetas Dinámicas
-for(let i = 0; i < canjesRealizados.length; i++){
-    leyenda.push(`${canjesRealizados[i].detalle}`);
-    series.push(`${canjesRealizados[i].costo}`);
-}
-
-const labels = [...leyenda];
+const labels = [];
 
 const data = {
-labels: labels,
+    labels: labels,
     datasets: [{
         label: 'GRÁFICO DE PRODUCTOS CANJEADOS',
         backgroundColor: ['rgb(255, 99, 132)', 'rgb(126, 99, 255)', 'rgb(126, 255, 120)', 'rgb(200, 30, 30)', 'rgb(30, 200, 30)', 'rgb(30, 30, 200)'],
         borderColor: ['rgb(255, 99, 132)', 'rgb(126, 99, 255)', 'rgb(126, 255, 120)', 'rgb(200, 30, 30)', 'rgb(30, 200, 30)', 'rgb(30, 30, 200)'],
-        data: [...series],
+        data: [],
     }]
 };
 
@@ -200,10 +195,19 @@ const config = {
 };
 
 //Renderizo Gráfico
-const myChart = new Chart(document.getElementById('myChart'), config);
+let canvasGrafico = document.getElementById('myChart');
+const myChart = new Chart(canvasGrafico, config);
 
-let botonGrafico = document.querySelector('.btn-grafico');
-botonGrafico.addEventListener("click", (e) => location.reload());
+//Creo Etiquetas Dinámicas
+for(let i = 0; i < canjesRealizados.length; i++){
+    myChart.data.datasets[0].data[i] = `${canjesRealizados[i].costo}`;
+    myChart.data.labels[i] = `${canjesRealizados[i].detalle}`;
+    myChart.update();
+}
+
+function updateChart(){
+    location.reload();
+}
 
 //Fetch para obtener cotización del Dolar Blue de Api Dolar - https://github.com/Castrogiovanni20/api-dolar-argentina
 let fechaCotizacion = '';
