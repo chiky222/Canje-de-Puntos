@@ -118,8 +118,8 @@ function realizarCanje(indice) {
             mensajeSweetAlert(`¡Canje realizado correctamente!`, `Te quedan ${puntosUsuario} puntos.`, 'success', 'Seguir Canjeando');
 
             setTimeout(() => {
-                updateChart();            
-            },3000);
+                updateChart(todosLosProductos[indice]);            
+            },1000);
             
         } else {
             mensajeSweetAlert(`¡Malas noticias!`, `No tenés puntos suficientes para realizar el canje. ¡Seguí sumando!`, '', 'Volver');
@@ -199,14 +199,12 @@ let canvasGrafico = document.getElementById('myChart');
 const myChart = new Chart(canvasGrafico, config);
 
 //Creo Etiquetas Dinámicas
-for(let i = 0; i < canjesRealizados.length; i++){
-    myChart.data.datasets[0].data[i] = `${canjesRealizados[i].costo}`;
-    myChart.data.labels[i] = `${canjesRealizados[i].detalle}`;
+function updateChart(producto){
+    myChart.data.labels.push(producto.detalle);
+    myChart.data.datasets.forEach((dataset) => {
+        dataset.data.push(producto.costo);
+    })
     myChart.update();
-}
-
-function updateChart(){
-    location.reload();
 }
 
 //Fetch para obtener cotización del Dolar Blue de Api Dolar - https://github.com/Castrogiovanni20/api-dolar-argentina
