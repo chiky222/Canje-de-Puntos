@@ -104,7 +104,7 @@ function realizarCanje(indice) {
             //Alerta para recordar actualizar el gráfico con los nuevos canjes usando Toast
             const mensajeConfirmacion = setTimeout(() => {
                 Toastify({
-                    text: "Los Datos se actualizarán en el Gráfico",                
+                    text: "Los Datos se actualizaron en el Gráfico",                
                     duration: 2000,
                     style: {
                         background: "linear-gradient(to right, #0F1626, #FF533D)",
